@@ -13,7 +13,7 @@ def start():
 
     match(choice):
         case 1:
-            ms.Configure()
+            ms.Scedule()
         case _:
             print('PLease choose the appropriate one!')
 
