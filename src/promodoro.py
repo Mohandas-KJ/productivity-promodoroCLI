@@ -15,7 +15,7 @@ def start():
         case 1:
             ms.Scedule()
         case _:
-            print('PLease choose the appropriate one!')
+            print('Please choose the appropriate one!')
 
 if __name__ == "__main__":
     start()

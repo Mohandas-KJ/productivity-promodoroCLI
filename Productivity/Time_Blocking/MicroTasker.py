@@ -32,7 +32,7 @@ def Scedule():
     os.system('cls')
     target = len(tasks)
     print('Timer Started. Stay Focused!\n')
-    timer.execute_task(tasks,target,tick)
+    timer.execute_task(tasks.copy(),target,tick)
 
 
 
