@@ -49,6 +49,73 @@ I create projects that makes one programming concept fit in a Big Picture. Like 
 
 **This project may not be large in scope, but it focuses on understanding how individual libraries and concepts fit into a larger system.**
 
+## 📁 Project Structure
+``` 
+productivity-promodoroCLI/
+├── .gitignore
+├── README.md
+├── run.py
+├── pyenv.cfg
+│
+├── src/
+│   ├── __init__.py
+│   ├── pomodoro.py
+│   │
+│   └── productivity/
+│       ├── __init__.py
+│       │
+│       ├── commons/
+│       │   ├── __init__.py
+│       │   ├── spinner_timer.py
+│       │   └── time_sheet.py
+│       │
+│       └── time_blocking/
+│           ├── __init__.py
+│           ├── micro_tasker.py
+│           └── mt_timer.py
+│
+└── test/
+```
+
+- `run.py` -> entry point (recommended way to run)
+- `pomodoro.py` -> This is the main python script where the flow starts
+- `productivity` -> This is the package where core modules live
+
+## ▶️ How to Run
+### 1️⃣ Clone the repository
+```bash
+git clone https://github.com/Mohandas-KJ/productivity-pomodoroCLI.git
+cd productivity-promodoroCLI
+```
+
+### 2️⃣ Run the application
+```bash
+python run.py
+```
+
+That’s it. No setup. No environment variables. No package installation.
+
+## 🧠 Why `run.py` Exists
+The project uses a src/ layout.
+To keep execution simple for users, run.py delegates execution to the main program inside src.
+
+This avoids:
+- PYTHONPATH issues
+- confusing python -m commands
+- platform-specific import errors
+
+You can still run the core file if needed:
+```bash
+python src/promodoro.py
+```
+
+## 🛠️ Current Features
+- Micro Time Blocking (Elon Musk–style scheduling)
+- Interactive CLI menu
+- Cross-platform terminal support
+
+More techniques will be added incrementally.
+
 ## 📚 Learning Notes (Planned)
 This repository will include a future folder documenting:
 - Workflow design decisions
@@ -57,6 +124,10 @@ This repository will include a future folder documenting:
 - Personal notes on threading, scheduling, and CLI UX
 - Mistakes, fixes, and insights
 - Learning is documented in my own words, not copied explanations.
+
+## 💡 Philosophy
+**Productivity tools should reduce friction, not create it.**
+This project prioritizes clarity, portability, and learning over unnecessary abstractions.
 
 ## 🛠️ Tech Stack
 - Language: Python
