@@ -1,11 +1,11 @@
-# **🚀 Promodoro CLI**
+# **🚀 Pomodoro CLI**
 A Micro-Task–Driven Productivity Timer for Focused Execution
 
 ## Overview
-Promodoro CLI is a modular, command-line productivity tool designed to execute work in micro-task blocks using timed focus sessions.
+Pomodoro CLI is a modular, command-line productivity tool designed to execute work in micro-task blocks using timed focus sessions.
 Inspired by high-performance work principles (including time-boxing and micro-execution strategies), this tool helps users break work into small, executable units and complete them sequentially with discipline.
 
-Unlike traditional Pomodoro timers, Promodoro emphasizes:
+Unlike traditional Pomodoro timers, Pomodoro emphasizes:
 
 - Task execution over time tracking
 - Micro-task scheduling
