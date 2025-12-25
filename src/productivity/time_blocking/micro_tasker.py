@@ -14,8 +14,21 @@ def Configure():
     Clear_Screen()
     About()
     print('Configuration: ')
-    Num_of_tasks = int(input('Enter Number of Tasks: '))
-    Time_per_task = int(input('Enter Time per Task (min): '))
+
+    Num_of_tasks = None
+    Time_per_task = None
+
+    while True:
+        try:
+            Num_of_tasks = int(input('Enter Number of Tasks: '))
+            Time_per_task = int(input('Enter Time per Task (min): '))
+            if Num_of_tasks <= 0 or Time_per_task <= 0:
+                print('Values must be greater than zero!\n')
+                continue
+            break
+        except ValueError:
+            print('Only Integer values are allowed!\n')
+
     hrs,mins = ts.getTotal(Num_of_tasks, Time_per_task)
     print(f'\nTotal Time: {hrs} {'Hours' if hrs > 1 else 'Hour'} {mins} Minutes')
 
