@@ -24,7 +24,7 @@ def beep(frequency, tp_ms,vibration):
     #Fallback, if none is possible
     print("\a",end="",flush=True)
 
-def execute_task(tasks,target,time_per_task,interval_time=2,run_async=False):
+def execute_task(tasks, target, time_per_task, is_silent, tone, interval_time=2, run_async=False):
 
     def worker():
         if target != len(tasks):

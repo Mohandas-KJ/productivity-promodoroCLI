@@ -21,6 +21,8 @@ def a_parser():
     
     return pars.parse_args()
 
+program_args = a_parser() # Get user args
+
 def start():
     print('Welcome to Promodoro CLI!')
     print('\nChoose Your Productivity Method: ')
@@ -31,7 +33,7 @@ def start():
 
     match(choice):
         case 1:
-            ms.Scedule()
+            ms.Scedule(program_args.silent,program_args.tone)
         case _:
             print('Please choose the appropriate one!')
 
