@@ -16,3 +16,9 @@ def isTermux():
     if "ANDROID_ROOT" in os.environ or "com.termux" in os.environ.get("TERM",""):
         return True
     return False
+
+def Clear_Screen():
+    if platform.system() == "Windows":
+        os.system('cls')
+    else:
+        os.system('clear')
