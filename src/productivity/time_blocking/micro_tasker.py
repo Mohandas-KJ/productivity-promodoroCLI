@@ -45,7 +45,7 @@ def Scedule(is_silent,tone):
     Clear_Screen()
     target = len(tasks)
     print('Timer Started. Stay Focused!\n')
-    timer.execute_task(tasks.copy(),target,is_silent,tone,tick*60)
+    timer.execute_task(tasks.copy(),target,tick*60,is_silent,tone)
 
 def Clear_Screen():
     if platform.system() == "Windows":

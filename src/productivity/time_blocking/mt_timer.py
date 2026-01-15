@@ -1,8 +1,8 @@
 from productivity.commons import spinner_timer as stimer
-from productivity.time_blocking import AlertManager as am
+from productivity.time_blocking.AlertManager import Alert
 import threading,sys,platform,os,time
 
-def execute_task(tasks, target, time_per_task, is_silent, tone, interval_time=2, run_async=False):
+def execute_task(tasks, target, time_per_task, is_silent, tone, interval_time=2, run_async=True):
 
     def worker():
         if target != len(tasks):
@@ -16,10 +16,7 @@ def execute_task(tasks, target, time_per_task, is_silent, tone, interval_time=2,
             temp = tasks.pop(0)
 
             #Play a Sound
-            try:
-                am.Alert(is_silent,tone,1)
-            except Exception:
-                pass
+            Alert(is_silent,tone,1)
 
             #Display Ongoing Task
             print(f'Current Task: {temp}')
@@ -33,10 +30,9 @@ def execute_task(tasks, target, time_per_task, is_silent, tone, interval_time=2,
         
             completed += 1
             print(f'Completed: {temp} ({completed}/{target})')
-            try:
-                am.Alert(is_silent,tone,0)
-            except Exception:
-                pass
+
+            th1 = threading.Thread(target=Alert,args=(is_silent,tone,0),daemon=True)
+            th1.start()
         
             if interval_time and tasks:
                time.sleep(interval_time)
@@ -44,8 +40,9 @@ def execute_task(tasks, target, time_per_task, is_silent, tone, interval_time=2,
         print("\nCONGRADULATIONS JOB DONE!")
 
     if run_async:
-        t = threading.Thread(target=worker,daemon=True)
+        t = threading.Thread(target=worker,daemon=False)
         t.start()
+        t.join()
         return t
     else:
         worker()

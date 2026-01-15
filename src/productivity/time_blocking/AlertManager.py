@@ -5,6 +5,7 @@
 from productivity.commons import platrad as pt
 import os 
 import simpleaudio as sa
+import threading
 from pathlib import Path
 
 def beep(frequency, tp_ms):
@@ -31,30 +32,27 @@ def vibrate(vibration):
         pass
 
 def playAudio(tid):
+    BASE_DIR = Path(__file__).resolve().parents[2]
+    TONE_DIR = BASE_DIR / "assets" / "sounds"
 
-    GEN_DIR = Path(__file__).resolve().parent
-    TONE_DIR = GEN_DIR / "assets" / "sounds"
+    sound_map = {
+        1: "digital_clock.wav",
+        2: "doodle.wav",
+        3: "london.wav",
+        4: "techtonic.wav",
+        5: "tick-tock.wav",
+        6: "trap.wav"
+    }
 
-    match tid:
-        case 1:
-            wav_obj = sa.WaveObject.from_wave_file(TONE_DIR / "digital_clock.wav")
-            wav_obj.play()
-        case 2:
-            wav_obj = sa.WaveObject.from_wave_file(TONE_DIR / "doodle.wav")
-            wav_obj.play()
-        case 3:
-            wav_obj = sa.WaveObject.from_wave_file(TONE_DIR / "london.wav")
-            wav_obj.play()
-        case 4:
-            wav_obj = sa.WaveObject.from_wave_file(TONE_DIR / "techtonic.wav")
-            wav_obj.play()
-        case 5:
-            wav_obj = sa.WaveObject.from_wave_file(TONE_DIR / "tick-tock.wav")
-            wav_obj.play()
-        case 6:
-            wav_obj = sa.WaveObject.from_wave_file(TONE_DIR / "trap.wav")
-            wav_obj.play()
+    sound_file = sound_map.get(tid)
+    if not sound_file:
+        return
 
+    def _play():
+        wav_obj = sa.WaveObject.from_wave_file(str(TONE_DIR / sound_file))
+        wav_obj.play()
+    
+    threading.Thread(target=_play,daemon=True).start()
 
 def Alert(is_silent, tone, seq):
     if is_silent and pt.isWindows():
