@@ -2,7 +2,7 @@ from productivity.commons import spinner_timer as stimer
 from productivity.time_blocking.AlertManager import Alert
 import threading,sys,platform,os,time
 
-def execute_task(tasks, target, time_per_task, is_silent, tone, interval_time=2, run_async=True):
+def execute_task(tasks, target, time_per_task, is_silent, tone, interval_time=10, run_async=False):
 
     def worker():
         if target != len(tasks):
@@ -31,8 +31,7 @@ def execute_task(tasks, target, time_per_task, is_silent, tone, interval_time=2,
             completed += 1
             print(f'Completed: {temp} ({completed}/{target})')
 
-            th1 = threading.Thread(target=Alert,args=(is_silent,tone,0),daemon=True)
-            th1.start()
+            Alert(is_silent,tone,0)
         
             if interval_time and tasks:
                time.sleep(interval_time)

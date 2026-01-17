@@ -20,6 +20,12 @@ def isTermux():
     else:
         return False
 
+def isMac():
+    if platform.system() == "Darwin":
+        return True
+    else:
+        return False
+
 def Clear_Screen():
     if platform.system() == "Windows":
         os.system('cls')

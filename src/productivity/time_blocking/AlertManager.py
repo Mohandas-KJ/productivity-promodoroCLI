@@ -3,7 +3,7 @@
 
 # Imports
 from productivity.commons import platrad as pt
-import os 
+import os, subprocess
 import simpleaudio as sa
 import threading
 from pathlib import Path
@@ -31,7 +31,7 @@ def vibrate(vibration):
     except Exception:
         pass
 
-def playAudio(tid):
+def playAudio(tid,seq):
     BASE_DIR = Path(__file__).resolve().parents[2]
     TONE_DIR = BASE_DIR / "assets" / "sounds"
 
@@ -48,11 +48,32 @@ def playAudio(tid):
     if not sound_file:
         return
 
-    def _play():
-        wav_obj = sa.WaveObject.from_wave_file(str(TONE_DIR / sound_file))
-        wav_obj.play()
-    
-    threading.Thread(target=_play,daemon=True).start()
+    path_s = str(TONE_DIR / sound_file)
+
+    try:
+        if pt.isWindows():
+            subprocess.Popen([
+                "powershell",
+                "-NoProfile",
+                "-Command",
+                f"(New-Object Media.SoundPlayer '{path_s}').PlaySync()"
+            ])
+        elif pt.isLinux():
+            subprocess.Popen(['aplay',path_s],
+                         stderr=subprocess.DEVNULL,
+                         stdout=subprocess.DEVNULL)
+        elif pt.isMac():
+            subprocess.Popen(["afplay",path_s])
+        elif pt.isTermux():
+            if seq:
+                vibrate(200)
+            else:
+                vibrate(800)
+            os.system(f"termux-media-player play {path_s}")
+    except Exception:
+        print("\a",end="",flush=True)
+        print('There is a Problem with your Sound Card')
+
 
 def Alert(is_silent, tone, seq):
     if is_silent and pt.isWindows():
@@ -68,4 +89,4 @@ def Alert(is_silent, tone, seq):
         else:
             vibrate(800)
     else:
-        playAudio(tone)
+        playAudio(tone,seq)
