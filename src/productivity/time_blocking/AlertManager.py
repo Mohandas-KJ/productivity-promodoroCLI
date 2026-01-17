@@ -28,7 +28,7 @@ def vibrate(vibration):
             os.system(f"termux-vibrate -d {vibration}")
             return
     except Exception:
-        pass
+        print('Vibrator Error')
 
 def playAudio(tid,seq):
     BASE_DIR = Path(__file__).resolve().parents[2]
