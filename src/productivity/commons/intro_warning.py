@@ -27,4 +27,4 @@ def warning(is_silent):
         if config.IS_TERMUX and not config.TERMUX_API_SUPPORTED:
             print('Warning: Termux-API is not yet supported! Alerts sounds will fail')
             time.sleep(3)
-            pt.Clear_Screen
+            pt.Clear_Screen()
